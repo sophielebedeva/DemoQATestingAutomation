@@ -1,21 +1,20 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class DemoQAHomePage extends BasePage {
     public DemoQAHomePage(WebDriver driver) {
         super(driver);
     }
 
-    By elementsButton = By.xpath("//div[@class='category-cards']/div[1]/div[1]");
+    @FindBy(xpath = "//div[@class='category-cards']/div[1]/div[1]")
+    WebElement elementsButton;
 
-    public WebElement goToElementsSection() {
+    public void goToElementsSection() {
         scrollDown();
-        WebElement element = driver.findElement(elementsButton);
-        jsexecutor.executeScript("arguments[0].click();", element);
-        return element;
+        jsexecutor.executeScript("arguments[0].click();", elementsButton);
     }
 
 }

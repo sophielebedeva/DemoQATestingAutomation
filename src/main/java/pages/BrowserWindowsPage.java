@@ -2,8 +2,9 @@ package pages;
 
 import io.qameta.allure.Step;
 import io.qameta.allure.Story;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -12,8 +13,11 @@ public class BrowserWindowsPage extends BasePage {
     public BrowserWindowsPage(WebDriver driver) {
         super(driver);
     }
-    By newTabButton = By.cssSelector("#tabButton");
-    By newWindowButton = By.cssSelector("#windowButton");
+
+    @FindBy(css = "#tabButton")
+    WebElement newTabButton;
+    @FindBy(css = "#windowButton")
+    WebElement newWindowButton;
 
     @Step("Открывает и закрывает новую вкладку, открывает и закрывает новое окно")
     @Story("Проверка открытия/закрытия вкладок и окон")
@@ -24,7 +28,7 @@ public class BrowserWindowsPage extends BasePage {
         closeNewWindow();
     }
     public void openNewTab() {
-        waitForClickable(driver.findElement(newTabButton));
+        waitForClickable(newTabButton);
     }
     public void closeNewTab() {
         ArrayList<String> handles = new ArrayList<>(driver.getWindowHandles());
@@ -34,7 +38,7 @@ public class BrowserWindowsPage extends BasePage {
     }
 
     public void openNewWindow() {
-        waitForClickable(driver.findElement(newWindowButton));
+        waitForClickable(newWindowButton);
     }
 
     public void closeNewWindow() {

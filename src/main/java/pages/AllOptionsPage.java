@@ -1,40 +1,48 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
 public class AllOptionsPage extends BasePage {
     public AllOptionsPage(WebDriver driver) {
         super(driver);
     }
 
-    By textBoxButton = By.xpath("//div[@class='element-list collapse show']//li[@id='item-0']");
-    By alertsFramesWindowsButton = By.xpath("(//div[contains(@class,'header-wrapper')])[3]");
-    By browserWindowsButton = By.xpath("//div[@class='element-list collapse show']//li[@id='item-0']");
-    By alertsButton = By.xpath("//div[@class='element-list collapse show']//li[@id='item-1']");
-    By buttonsButton = By.xpath("//div[@class='element-list collapse show']//li[@id='item-4']");
-    By elementsButton = By.xpath("(//div[contains(@class,'header-wrapper')])[1]");
+    @FindBy(xpath = "//div[@class='element-list collapse show']//li[@id='item-0']")
+    WebElement textBoxButton;
+    @FindBy(xpath = "(//div[contains(@class,'header-wrapper')])[3]")
+    WebElement alertsFramesWindowsButton;
+    @FindBy(xpath = "//div[@class='element-list collapse show']//li[@id='item-0']")
+    WebElement browserWindowsButton;
+    @FindBy(xpath = "//div[@class='element-list collapse show']//li[@id='item-1']")
+    WebElement alertsButton;
+    @FindBy(xpath = "//div[@class='element-list collapse show']//li[@id='item-4']")
+    WebElement buttonsButton;
+    @FindBy(xpath = "(//div[contains(@class,'header-wrapper')])[1]")
+    WebElement elementsButton;
 
     public void goToTextBoxSection() {
-        driver.findElement(textBoxButton).click();
+        textBoxButton.click();
     }
 
     public void goToButtonsSection() {
-        driver.findElement(buttonsButton).click();
+        buttonsButton.click();
     }
 
     public void goToAlertsFramesWindowsSection() {
-        waitForClickable(driver.findElement(elementsButton));
+        waitForClickable(elementsButton);
         scrollDown();
-        waitForClickable(driver.findElement(alertsFramesWindowsButton));
+        waitForClickable(alertsFramesWindowsButton);
     }
 
     public void goToBrowserWindowSection() {
-        waitForClickable(driver.findElement(browserWindowsButton));
+        waitForClickable(browserWindowsButton);
     }
 
     public void goToAlertsSection(){
         scrollDown();
-        driver.findElement(alertsButton).click();
+        alertsButton.click();
     }
 
 }

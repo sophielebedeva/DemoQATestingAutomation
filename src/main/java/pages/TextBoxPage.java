@@ -3,6 +3,7 @@ package pages;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
 import jdk.jfr.Description;
+import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,12 +16,16 @@ public class TextBoxPage extends BasePage {
     public TextBoxPage(WebDriver driver) {
         super(driver);
     }
-
-    By fullNameForm = By.cssSelector("#userName");
-    By emailForm = By.cssSelector("#userEmail");
-    By currentAddressForm = By.xpath("//textarea[@id='currentAddress']");
-    By permanentAddressForm = By.xpath("//textarea[@id='permanentAddress']");
-    By submitButton = By.cssSelector("#submit");
+    @FindBy(css="#userName")
+    WebElement fullNameForm;
+    @FindBy(css="#userEmail")
+    WebElement emailForm;
+    @FindBy(xpath = "//textarea[@id='currentAddress']")
+    WebElement currentAddressForm;
+    @FindBy(xpath = "//textarea[@id='permanentAddress']")
+    WebElement permanentAddressForm;
+    @FindBy(css = "#submit")
+    WebElement submitButton;
     By submittedInfoBox = By.cssSelector(".border.col-md-12.col-sm-12");
 
     Map<String, String> textBoxValues = Map.of("name", "Sophie",
@@ -40,18 +45,16 @@ public class TextBoxPage extends BasePage {
 
     @Description("Заполняет все поля в textBox")
     public void fillTextBox(Map<String, String> values) {
-        driver.findElement(fullNameForm).sendKeys(values.get("name"));
-        driver.findElement(emailForm).sendKeys(values.get("email"));
+        fullNameForm.sendKeys(values.get("name"));
+        emailForm.sendKeys(values.get("email"));
         scrollDown();
-        driver.findElement(currentAddressForm).sendKeys(values.get("currentAddress"));
-        driver.findElement(permanentAddressForm).sendKeys(values.get("permanentAddress"));
+        currentAddressForm.sendKeys(values.get("currentAddress"));
+        permanentAddressForm.sendKeys(values.get("permanentAddress"));
         scrollDown();
     }
-
     @Description("Отправляет заполненную информацию")
     public void submitTextInfo() {
-        WebElement submitClickButton = driver.findElement(submitButton);
-        waitForClickable(submitClickButton);
+        waitForClickable(submitButton);
     }
 
     @Description("Проверяет, что введеная информация об имени, фамилии, адресах соответствует отображаемой")

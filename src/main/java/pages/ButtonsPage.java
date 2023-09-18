@@ -2,8 +2,9 @@ package pages;
 
 import io.qameta.allure.Step;
 import io.qameta.allure.Story;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
 public class ButtonsPage extends BasePage {
@@ -11,12 +12,18 @@ public class ButtonsPage extends BasePage {
         super(driver);
     }
 
-    By simpleClickButton = By.xpath("(//button[normalize-space()='Click Me'])");
-    By rightClickButton = By.xpath("(//button[normalize-space()='Right Click Me'])");
-    By doubleClickButton = By.cssSelector("#doubleClickBtn");
-    By clickMessage = By.cssSelector("#dynamicClickMessage");
-    By rightClickMessage = By.cssSelector("#rightClickMessage");
-    By doubleClickMessage = By.cssSelector("#doubleClickMessage");
+    @FindBy(xpath = "(//button[normalize-space()='Click Me'])")
+    WebElement simpleClickButton;
+    @FindBy(xpath = "(//button[normalize-space()='Right Click Me'])")
+    WebElement rightClickButton;
+    @FindBy(css ="#doubleClickBtn")
+    WebElement doubleClickButton;
+    @FindBy(css = "#dynamicClickMessage")
+    WebElement clickMessage;
+    @FindBy(css = "#rightClickMessage")
+    WebElement rightClickMessage;
+    @FindBy(css = "#doubleClickMessage")
+    WebElement doubleClickMessage;
 
     String messageForSimpleClick = "You have done a dynamic click";
     String messageForRightClick = "You have done a right click";
@@ -36,27 +43,27 @@ public class ButtonsPage extends BasePage {
     }
 
     public void simpleClickAction() {
-        waitForClickable(driver.findElement(simpleClickButton));
+        waitForClickable(simpleClickButton);
     }
 
     public void rightClickAction() {
-        actions.contextClick(driver.findElement(rightClickButton)).build().perform();
+        actions.contextClick(rightClickButton).build().perform();
     }
 
     public void doubleClickAction() {
-        actions.doubleClick(driver.findElement(doubleClickButton)).build().perform();
+        actions.doubleClick(doubleClickButton).build().perform();
     }
 
     public void validateSimpleClick() {
-        Assert.assertEquals(driver.findElement(clickMessage).getText(), messageForSimpleClick);
+        Assert.assertEquals(clickMessage.getText(), messageForSimpleClick);
     }
 
     public void validateRightClick() {
-        Assert.assertEquals(driver.findElement(rightClickMessage).getText(), messageForRightClick);
+        Assert.assertEquals(rightClickMessage.getText(), messageForRightClick);
     }
 
     public void validateDoubleClick() {
-        Assert.assertEquals(driver.findElement(doubleClickMessage).getText(), messageForDoubleClick);
+        Assert.assertEquals(doubleClickMessage.getText(), messageForDoubleClick);
     }
 
 }
